@@ -9,10 +9,12 @@ import { AuthActions } from '../auth.action';
 
 
 export interface AuthState {
-  user: undefined;
+
 }
 
-export const initialState: AuthState = {};
+export const initialState: AuthState = {
+  user: undefined,
+};
 
 // export const reducers: ActionReducerMap<AuthState> = {};
 
@@ -22,5 +24,5 @@ export const authReducer = createReducer(
     return {
       user: action.user
     };
-  })
+  }),
 );
