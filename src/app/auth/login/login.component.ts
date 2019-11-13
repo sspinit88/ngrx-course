@@ -8,7 +8,8 @@ import { tap } from 'rxjs/operators';
 import { noop } from 'rxjs';
 import { Router } from '@angular/router';
 import { AppState } from '../../reducers';
-import { login } from '../auth.action';
+import { AuthActions } from '../auth.action';
+
 
 @Component({
   selector: 'app-login',
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(val.email, val.password)
       .pipe(
         tap(user => {
-          this.store.dispatch(login({user}));
+          this.store.dispatch(AuthActions.login({user}));
 
           this.router.navigate(['/courses']);
         }),
