@@ -6,10 +6,11 @@ import {
   MetaReducer, on
 } from '@ngrx/store';
 import { AuthActions } from '../auth.action';
+import { User } from '../model/user.model';
 
 
 export interface AuthState {
-
+  user: User;
 }
 
 export const initialState: AuthState = {
