@@ -4,7 +4,7 @@ import { CourseActions } from './courses.action';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 
 export interface CoursesState extends EntityState<Course> {
-
+  allCoursesLoaded: boolean;
 }
 
 export const adapter = createEntityAdapter<Course>({
@@ -12,14 +12,22 @@ export const adapter = createEntityAdapter<Course>({
   selectId: course => course.id, // по какому полю сортируем
 });
 
-export const initialCourseState: CoursesState = adapter.getInitialState();
+export const initialCourseState: CoursesState = adapter.getInitialState({
+  allCoursesLoaded: false,
+});
 
 export const coursesReducer = createReducer(
   initialCourseState,
   on(CourseActions.allCoursesLoaded, (state, action) => {
     // console.log('File: courses.reducer.ts, Line: 17, action.courses():', action.courses);
     // принимает данные и прошлый стейт
-    return adapter.addAll(action.courses, state);
+    return adapter.addAll(
+      action.courses,
+      {
+        ...state,
+        allCoursesLoaded: true,
+      }
+    );
   }),
 );
 

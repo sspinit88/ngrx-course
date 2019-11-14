@@ -31,3 +31,8 @@ export const selectPromoTotal = createSelector(
     course => course.promo,
   ).length
 );
+
+export const selectAllCoursesLoaded = createSelector(
+  selectorCoursesState,
+  state => state.allCoursesLoaded, // вернет true или false
+);
