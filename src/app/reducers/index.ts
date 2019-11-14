@@ -7,8 +7,11 @@ import {
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { routerReducer } from '@ngrx/router-store';
+import { AuthState } from '../auth/reducers';
+
 
 export interface AppState {
+  // auth: AuthState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -20,8 +23,8 @@ export const reducers: ActionReducerMap<AppState> = {
 // На практике они чаще всего используются для логирования.
 export function logged(reducer: ActionReducer<any>): ActionReducer<any> {
   return ((state, action) => {
-    console.log('File: index.ts, Class: logged, Line: 21, state():', state);
-    console.log('File: index.ts, Class: logged, Line: 22, action():', action);
+    // console.log('File: index.ts, Class: logged, Line: 21, state():', state);
+    // console.log('File: index.ts, Class: logged, Line: 22, action():', action);
     return reducer(state, action); // возвращаем результат, передаем текущее состояние и переданный экшн
   });
 }

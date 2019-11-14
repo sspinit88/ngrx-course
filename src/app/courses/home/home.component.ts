@@ -10,7 +10,7 @@ import {CoursesHttpService} from '../services/courses-http.service';
 
 
 @Component({
-    selector: 'home',
+    selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
