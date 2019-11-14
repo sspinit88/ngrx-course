@@ -26,7 +26,7 @@ export class CoursesResolver implements Resolve<any> {
             this.store.dispatch(CourseActions.loadAllCourses());
           }
         }),
-        first(), // получает первого наблюдаемого, юлагодаря чему может быть завершен переход по маршруту
+        first(), // получает первого наблюдаемого, благодаря чему может быть завершен переход по маршруту
         finalize(() => {
           this.loading = false;
         })

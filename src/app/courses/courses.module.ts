@@ -28,6 +28,8 @@ import { compareLessons, Lesson } from './model/lesson';
 import { CoursesResolver } from './store/courses.resolver';
 import { EffectsModule } from '@ngrx/effects';
 import { CoursesEffects } from './store/courses.effects';
+import { StoreModule } from '@ngrx/store';
+import { coursesReducer } from './store/courses.reducer';
 
 
 export const coursesRoutes: Routes = [
@@ -67,6 +69,7 @@ export const coursesRoutes: Routes = [
     EffectsModule.forFeature([
       CoursesEffects,
     ]),
+    StoreModule.forFeature('coursesReducer', coursesReducer),
   ],
   declarations: [
     HomeComponent,
