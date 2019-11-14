@@ -1,65 +1,62 @@
-import {Component, OnInit} from '@angular/core';
-import {compareCourses, Course} from '../model/course';
-import {Observable} from "rxjs";
-import {defaultDialogConfig} from '../shared/default-dialog-config';
-import {EditCourseDialogComponent} from '../edit-course-dialog/edit-course-dialog.component';
-import {MatDialog} from '@angular/material';
-import {map, shareReplay} from 'rxjs/operators';
-import {CoursesHttpService} from '../services/courses-http.service';
-
+import { Component, OnInit } from '@angular/core';
+import { compareCourses, Course } from '../model/course';
+import { Observable } from 'rxjs';
+import { defaultDialogConfig } from '../shared/default-dialog-config';
+import { EditCourseDialogComponent } from '../edit-course-dialog/edit-course-dialog.component';
+import { MatDialog } from '@angular/material';
+import { concatMap, map } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../reducers';
+import { selectAdvancedCourses, selectAllCourses, selectBeginnerCourses, selectPromoTotal } from '../store/courses.selectors';
 
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 
-    promoTotal$: Observable<number>;
+  promoTotal$: Observable<number>;
 
-    loading$: Observable<boolean>;
+  // loading$: Observable<boolean>;
 
-    beginnerCourses$: Observable<Course[]>;
+  beginnerCourses$: Observable<Course[]>;
 
-    advancedCourses$: Observable<Course[]>;
+  advancedCourses$: Observable<Course[]>;
 
 
-    constructor(
-      private dialog: MatDialog,
-      private coursesHttpService: CoursesHttpService) {
+  constructor(
+    private dialog: MatDialog,
+    private store: Store<AppState>,
+  ) {
+  }
 
-    }
-
-    ngOnInit() {
-      this.reload();
-    }
+  ngOnInit() {
+    this.reload();
+  }
 
   reload() {
-
-    const courses$ = this.coursesHttpService.findAllCourses()
+    this.beginnerCourses$ = this.store
       .pipe(
-        map(courses => courses.sort(compareCourses)),
-        shareReplay()
+        select(selectBeginnerCourses)
       );
 
-    this.loading$ = courses$.pipe(map(courses => !!courses));
-
-    this.beginnerCourses$ = courses$
+    this.advancedCourses$ = this.store
       .pipe(
-        map(courses => courses.filter(course => course.category == 'BEGINNER'))
+        select(selectAdvancedCourses),
       );
 
-
-    this.advancedCourses$ = courses$
+    this.promoTotal$ = this.store
       .pipe(
-        map(courses => courses.filter(course => course.category == 'ADVANCED'))
+        select(selectPromoTotal),
       );
 
-    this.promoTotal$ = courses$
-        .pipe(
-            map(courses => courses.filter(course => course.promo).length)
-        );
+    // this.loading$ = this.store
+    //   .pipe(
+    //     select(selectAllCourses),
+    //     map(courses => !!courses),
+    //   );
 
   }
 
@@ -68,7 +65,7 @@ export class HomeComponent implements OnInit {
     const dialogConfig = defaultDialogConfig();
 
     dialogConfig.data = {
-      dialogTitle:"Create Course",
+      dialogTitle: 'Create Course',
       mode: 'create'
     };
 
