@@ -46,8 +46,6 @@ export class LoginComponent implements OnInit {
         tap(user => {
 
           this.store.dispatch(AuthActions.login({ user }));
-
-          this.router.navigate(['/courses']);
         }),
       )
       .subscribe(res => console.log('File: login.component.ts, Class: LoginComponent, Line: 41, res():', res));
