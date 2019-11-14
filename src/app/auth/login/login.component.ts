@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
     this.auth.login(val.email, val.password)
       .pipe(
         tap(user => {
-
           this.store.dispatch(AuthActions.login({ user }));
         }),
       )
