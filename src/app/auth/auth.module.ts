@@ -12,6 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromAuth from './reducers';
 import { authReducer } from './reducers';
 import { AuthGuard } from '../auth.guard';
+import { AuthEffects } from './auth.effects';
 
 @NgModule({
   imports: [
@@ -26,6 +27,10 @@ import { AuthGuard } from '../auth.guard';
       // fromAuth.reducers
       authReducer
     ),
+    // эффекты, связанные конкретно с этим модуелм
+    EffectsModule.forFeature([
+      AuthEffects,
+    ]),
 
   ],
   declarations: [LoginComponent],
