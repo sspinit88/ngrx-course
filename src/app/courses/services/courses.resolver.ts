@@ -5,7 +5,7 @@ import { CourseEntityService } from './course-entity.service';
 import { map } from 'rxjs/operators';
 
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class CoursesResolver implements Resolve<boolean> {
 
   constructor(

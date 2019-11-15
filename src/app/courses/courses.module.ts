@@ -27,6 +27,7 @@ import { compareCourses, Course } from './model/course';
 import { compareLessons, Lesson } from './model/lesson';
 import { CourseEntityService } from './services/course-entity.service';
 import { CoursesResolver } from './services/courses.resolver';
+import { CoursesDataService } from './services/courses-data.service';
 
 
 export const coursesRoutes: Routes = [
@@ -82,17 +83,23 @@ const
   ],
   entryComponents: [EditCourseDialogComponent],
   providers: [
+    CoursesDataService,
     CoursesHttpService,
     CourseEntityService,
+    CoursesResolver,
   ]
 })
 export class CoursesModule {
 
   constructor(
     private eds: EntityDefinitionService,
+    private entityDataService: EntityDataService, // сервис для регистрации спец сервисов
+    private coursesService: CoursesDataService, // подключаем спец сервис
   ) {
     // регистрируем карту
     eds.registerMetadataMap(entityMetadata);
+    // регистрируем спец сервис (1 - объект, которому соответствует спец сервисб 2 - сам сервис)
+    entityDataService.registerService('Course', coursesService);
   }
 
 }
