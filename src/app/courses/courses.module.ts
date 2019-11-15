@@ -56,7 +56,7 @@ const
         optimisticUpdate: true,
       }
     },
-    Lesson: {
+    Lessons: {
       sortComparer: compareLessons,
     }
   };
