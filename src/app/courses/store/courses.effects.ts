@@ -13,10 +13,25 @@ export class CoursesEffects {
     this.actions$
       .pipe(
         ofType(CourseActions.loadAllCourses),
-        concatMap(action =>
+        concatMap(() =>
           this.coursesService.findAllCourses()),
         map(courses => CourseActions.allCoursesLoaded({ courses })),
       ),
+  );
+
+  updateCourses$ = createEffect(() =>
+      this.actions$
+        .pipe(
+          ofType(CourseActions.courseUpdated),
+          concatMap(
+            action =>
+              this.coursesService.saveCourse(
+                action.update.id, // id обновляемого элемента
+                action.update.changes, // передаем изменения
+              )
+          ),
+        ),
+    { dispatch: false }
   );
 
   constructor(
