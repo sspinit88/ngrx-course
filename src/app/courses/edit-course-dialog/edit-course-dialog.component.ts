@@ -69,6 +69,15 @@ export class EditCourseDialogComponent {
         .update(course); // обновляет данные в сторе, а также делает запрос на сервер (put)
 
       this.dialogRef.close();
+    } else if (this.mode === 'create') {
+      this.coursesService
+        .add(course)
+        .subscribe(
+          newCourse => {
+            console.log('File: edit-course-dialog.component.ts, Line: 77, newCourse():', newCourse);
+            this.dialogRef.close();
+          }
+        );
     }
   }
 
