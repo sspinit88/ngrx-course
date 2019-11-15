@@ -70,8 +70,5 @@ export class HomeComponent implements OnInit {
     };
 
     this.dialog.open(EditCourseDialogComponent, dialogConfig);
-
   }
-
-
 }
