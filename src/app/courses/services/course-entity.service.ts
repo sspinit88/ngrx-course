@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
-  EntityChangeTrackerBase,
-  EntityCollectionReducerFactory, EntityCollectionServiceBase,
+  EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
-  EntityDefinitionService
 } from '@ngrx/data';
 import { Course } from '../model/course';
 
