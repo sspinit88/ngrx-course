@@ -46,7 +46,15 @@ export const coursesRoutes: Routes = [
 
 const
   entityMetadata: EntityMetadataMap = {
-    Course: {}
+    Course: {
+      // тут подключаем сортировку
+      sortComparer: compareCourses,
+      //
+      entityDispatcherOptions: {
+        // если не указать, то данные после обновления будут появляться, только после того как будет дан ответ с сервера
+        optimisticUpdate: true,
+      }
+    }
   };
 
 @NgModule({
