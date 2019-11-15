@@ -10,7 +10,6 @@ export class CoursesResolver implements Resolve<boolean> {
 
   constructor(
     private coursesEntityService: CourseEntityService,
-    // private
   ) {
   }
 
